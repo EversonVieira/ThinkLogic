@@ -27,6 +27,8 @@ builder.Services.AddTransient<IValidator<ScheduledEvent>, ScheduledEventValidato
 
 
 
+builder.Services.AddCors(x => x.AddDefaultPolicy(y => y.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -36,7 +38,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseCors();
 
 app.UseHttpsRedirection();
 

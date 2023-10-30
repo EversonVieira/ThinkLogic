@@ -39,14 +39,14 @@ namespace ThinkLogic.API.Controllers
             return Ok(_business.Delete(id));
         }
 
-        [HttpGet("byId")]
+        [HttpGet("id")]
         [Produces(typeof(TLResponse<ScheduledEvent>))]
         public IActionResult Get(int id)
         {
             return Ok(_business.GetById(id));
         }
 
-        [HttpGet]
+        [HttpPost("ByRequest")]
         [Produces(typeof(TLListResponse<ScheduledEvent>))]
         public IActionResult GetByRequest(TLRequest<ScheduledEvent> request) 
         {
