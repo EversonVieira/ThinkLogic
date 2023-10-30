@@ -1,3 +1,7 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Forms
 
-<h1>Hello, world!</h1>
+<EditForm Model="PageFilter">
+    <InputDate @bind-Value="PageFilter.Date"></InputDate>
+</EditForm>
+    
