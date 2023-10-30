@@ -1,7 +1,114 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Components.Forms
 
-<EditForm Model="PageFilter">
+<EditForm Model="PageFilter" class="base-form">
     <InputDate @bind-Value="PageFilter.Date"></InputDate>
 </EditForm>
+ 
+<EditForm Model="Model" class="base-form">
+    <div class="form-item">
+        <label for="Id">Id</label>
+        <InputNumber id="Id" @bind-Value="Model.Id" disabled></InputNumber>
+    </div>
+    <div class="form-item">
+        <label for="Title">Title</label>
+        <InputText @bind-Value="Model.Title" />
+    </div>
+    <div class="form-item">
+        <label for="Description">Description</label>
+        <InputText @bind-Value="Model.Description" />
+    </div>
+
+    <div class="form-item">
+        <label for="Location">Location</label>
+        <InputText @bind-Value="Model.Location" />
+    </div>
+    <div class="form-item">
+        <label for="StartDate">StartDate</label>
+        <InputDate @bind-Value="Model.StartDate" />
+
+    </div>
+    <div class="form-item">
+        <label for="EndDate">EndDate</label>
+        <InputDate @bind-Value="Model.EndDate" />
+    </div>
+
+
+    <div class="form-controls">
+        <button @onclick="Save">Save</button>
+        <button @onclick="New">New</button>
+    </div>
+
     
+
+   
+   
+</EditForm>
+<div class="event-list">
+
+    @{
+        foreach(var item in this.ScheduledEvents)
+        {
+            <div class="event-item">
+                <div class="item">
+                    Title:<span>@item.Title</span>
+                </div>
+
+
+                <div class="item">
+                    Description:<span class="description">@item.Description</span>
+                </div>
+
+                <div>
+                    Location:
+                    <span class="location">
+                        @item.Location
+                    </span>
+                </div>
+                
+                <div>
+                    Start Date:
+                    <span class="date">
+                        @item.StartDate?.ToString("yyyy/MM/dd")
+                    </span>
+                </div>
+
+                <div>
+                    End Date:
+                    <span class="date">
+                        @item.EndDate?.ToString("yyyy/MM/dd")
+                    </span>
+                </div>
+             
+                <div>
+                    <button @onclick="() => Edit(item)">Edit</button>
+                    <button @onclick="() => Delete(item.Id)">Remove</button>
+                </div>
+
+               
+            </div>
+        }
+    }
+
+</div>
+
+<style>
+
+    .base-form{
+        display:flex;
+        flex-direction: column;
+    }
+
+    .form-item{
+        padding:5px;
+    }
+
+    .event-item{
+        background-color: rgb(114, 194, 247);
+        border: 1px solid rgba(0,0,0,0);
+        border-radius:8px;
+        padding:5px;
+
+    }
+
+</style>

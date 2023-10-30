@@ -32,14 +32,14 @@ namespace ThinkLogic.API.Controllers
             return Ok(_business.Update(model));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Produces(typeof(TLResponse<int>))]
         public IActionResult Delete(int id)
         {
             return Ok(_business.Delete(id));
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         [Produces(typeof(TLResponse<ScheduledEvent>))]
         public IActionResult Get(int id)
         {
