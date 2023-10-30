@@ -11,8 +11,8 @@ namespace ThinkLogic.Domain.Interfaces.Business
     {
         TLResponse<int> Insert(T model);
         TLResponse<int> Update(T model);
-        TLResponse<int> Delete(T model);
+        TLResponse<int> Delete(int id);
         TLResponse<T> GetById(int id);
-        TLResponse<T> GetByRequest<TFilter>(TLRequest<TFilter> request);
+        TLListResponse<T> GetByRequest<TFilter>(TLRequest<TFilter> request);
     }
 }

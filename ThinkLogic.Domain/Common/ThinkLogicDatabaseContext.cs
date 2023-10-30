@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ThinkLogic.Domain.Common
 {
-    public class ThinkLogicDatabaseContext
+    public class ThinkLogicDatabaseContext:IDisposable
     {
         public SqlConnection Connection { get; private set; }
 
@@ -17,7 +17,7 @@ namespace ThinkLogic.Domain.Common
             Connection.Open();
         }
 
-        public void WithTransaction(Action action)
+        public void WithTransaction(Action<SqlTransaction> action)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace ThinkLogic.Domain.Common
 
                 try
                 {
-                    action();
+                    action(transaction);
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -41,7 +41,7 @@ namespace ThinkLogic.Domain.Common
             }
         }
 
-        public T? WithTransaction<T>(Func<T> action)
+        public T? WithTransaction<T>(Func<SqlTransaction,T> action)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace ThinkLogic.Domain.Common
 
                 try
                 {
-                    result = action();
+                    result = action(transaction);
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -66,6 +66,12 @@ namespace ThinkLogic.Domain.Common
                 throw new Exception(ex.Message);
             }
 
+        }
+
+        public void Dispose()
+        {
+            this.Connection.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }
